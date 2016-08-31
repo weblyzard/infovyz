@@ -1,0 +1,35 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 46px;
+    font-weight: 500;
+    letter-spacing: -1px;
+    margin: 0.1em 0;
+}
+
+#example {
+  width: 960px;
+  margin: 20px auto;
+}
+
+#map {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+  width: 960px;
+  height: 500px;
+}
+
+.light {
+  color: #999;
+}
+
+.smaller {
+  font-size: 90%;
+}
+
+a, a:hover, a:visited {
+  color: #369;
+}

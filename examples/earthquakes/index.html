@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/examples/css/styles.css">
+<link rel="stylesheet" type="text/css" href="/build/infovyz.css">
+
+<div id="example">
+  <header>
+    <a href="https://github.com/weblyzard/infovyz">infovyz</a>/examples/earthquakes<br />
+    <span class="light smaller">Updated November 16, 2016</span>
+    <h1>Automatic Updating</h1>
+  </header>
+  <div id="map"></div>
+  <section id="controls">
+    <label><input type="checkbox" name="autozoom" id="checkbox-autozoom" checked /> Automatic Zoom on Update</label>
+  </section>
+  <section class="readme">
+    <p>This examples demonstrates automatic periodic data updates. An update is triggered every 5 seconds with a transition duration of 2 seconds.
+      Most of the code in this example is about getting the remote data. 
+      The bits relevant to the library usage are:</p>
+
+    <pre><code class="javascript">
+  // This initializes the map and attaches it to the wrapper DOM element.
+  var map = infovyz.map(d3)('#map');
+
+  // To add some bubbles to the map, simply call map() with some data.
+  map([
+    {
+      id: ...,
+      latitude: ...,
+      longitude: ...,
+      value: ...
+    },
+    ...
+  ]);
+    </code></pre>
+
+    <p>Here's the full code:</p>
+  </section>
+  <div id="code-wrapper"><pre><code id="code" class="javascript"></code></pre></div>
+</div>
+
+<script src="/node_modules/d3/build/d3.min.js"></script>
+<script src="/node_modules/d3-tile/build/d3-tile.min.js"></script>
+<script src="/build/infovyz.js"></script>
+
+<script id="example-script">
+  var map = infovyz.map(d3)('#map').transitionDuration(2000);
+
+  var locations = [
+    { // Ecuador
+      date: '2016-04-16',
+      west: -100,
+      south: -22,
+      east: -57,
+      north: 22
+    },
+    { // Italy
+      date: '2016-10-30',
+      west: 1.1,
+      south: 29.2,
+      east: 25,
+      north: 50
+    }
+  ];
+
+  var cache = {};
+  var load = function(d) {
+    var cache_id = JSON.stringify(d);
+    if (typeof cache[cache_id] !== 'undefined') {
+      map(cache[cache_id]);
+    }
+
+    // fetch earthquake data with a bounding box spanning the whole world
+    var geonamesUsername = 'infovyz';
+    d3.json('http://api.geonames.org/earthquakesJSON?north=' + d.north + '&south=' + d.south + '&east=' + d.east + '&west=' + d.west + '&maxRows=100&date=' + d.date + '&username=' + geonamesUsername, function(error, data) {
+      if (error) throw error;
+      cache[d] = data.earthquakes.map(function(d) {
+        return {
+          id: d.eqid,
+          latitude: d.lat,
+          longitude: d.lng,
+          value: d.magnitude
+        };
+      });
+      d3.select('#date').html(d);
+      map(cache[d]);
+    });
+  }
+
+  var isActive = true;
+  window.onfocus = function () { 
+    isActive = true; 
+  }; 
+  window.onblur = function () { 
+    isActive = false; 
+  }; 
+
+  var update = function() {
+    if (isActive) {
+      var d = locations.shift();
+      load(d);
+      locations.push(d);
+    }
+  };
+
+  setInterval(function() {
+    update();
+  }, 5000);
+  update();
+
+  d3.select('#checkbox-autozoom').on('click', function(e) {
+    map.autozoom(this.checked);
+  });
+  
+</script>
+
+<script src="/examples/js/highlight.js"></script>
+

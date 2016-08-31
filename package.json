@@ -1,0 +1,49 @@
+{
+  "name": "infovyz",
+  "version": "1.0.0-b1",
+  "description": "data visualization library",
+  "keywords": [
+    "d3",
+    "visualization",
+    "library"
+  ],
+  "main": "build/infovyz.js",
+  "jsnext:main": "index",
+  "homepage": "https://github.com/weblyzard/infovyz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weblyzard/infovyz.git"
+  },
+  "bugs": {
+    "url": "https://github.com/webLyzard/infovyz/issues"
+  },
+  "scripts": {
+    "start": "http-server",
+    "pretest": "rm -rf build && mkdir build && rollup -f umd -n infovyz -o build/infovyz.js -- index.js",
+    "watch": "rm -rf build && mkdir build && rollup -c --watch | npm run watch-css | http-server",
+    "test": "tape 'test/**/*-test.js'",
+    "build-css": "lessc src/styles/map.less > build/infovyz.css",
+    "watch-css": "catw -w 'src/styles/**/*.less' -c 'npm run build-css'",
+    "prepublish": "npm run test && uglifyjs build/infovyz.js -c -m -o build/infovyz.min.js && npm run build-css",
+    "postpublish": "zip -j build/infovyz.zip -- LICENSE README.md build/infovyz.css build/infovyz.js build/infovyz.min.js"
+  },
+  "dependencies": {
+    "d3": "^4.3.0",
+    "d3-tile": "0.0.3"
+  },
+  "devDependencies": {
+    "catw": "^1.0.1",
+    "eslint": "^3.8.1",
+    "eslint-config-es5": "^0.5.0",
+    "http-server": "^0.9.0",
+    "jsdom": "^9.8.3",
+    "less": "^2.7.1",
+    "rollup": "^0.36.3",
+    "rollup-plugin-eslint": "^3.0.0",
+    "rollup-watch": "^2.5.0",
+    "tape": "4",
+    "uglify-js": "2"
+  },
+  "author": "webLyzard technology GmbH",
+  "license": "BSD-3-Clause"
+}
