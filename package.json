@@ -1,6 +1,6 @@
 {
   "name": "infovyz",
-  "version": "1.0.0-b1",
+  "version": "1.0.0-beta.1",
   "description": "data visualization library",
   "keywords": [
     "d3",
@@ -28,10 +28,10 @@
     "postpublish": "zip -j build/infovyz.zip -- LICENSE README.md build/infovyz.css build/infovyz.js build/infovyz.min.js"
   },
   "dependencies": {
-    "d3": "^4.3.0",
-    "d3-tile": "0.0.3"
   },
   "devDependencies": {
+    "d3": "^4.3.0",
+    "d3-tile": "0.0.3",
     "catw": "^1.0.1",
     "eslint": "^3.8.1",
     "eslint-config-es5": "^0.5.0",
