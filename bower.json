@@ -1,0 +1,22 @@
+{
+  "name": "infovyz",
+  "description": "data visualization library",
+  "main": "build/infovyz.js",
+  "authors": [
+    "webLyzard technology GmbH"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "d3",
+    "visualization",
+    "library"
+  ],
+  "homepage": "https://github.com/weblyzard/infovyz",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
