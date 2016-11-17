@@ -64,6 +64,8 @@ The console output should tell you at which address you can reach the static web
 - http://localhost:8080/examples/earthquakes/
 - http://localhost:8080/examples/state-capitals/
 
+<img src="examples/earthquakes/earthquakes.jpg" alt="Earthquakes Example" width="500" />
+
 ## Testing
 
 _Infovyz_ is using tape for testing its functionality:
