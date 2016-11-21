@@ -4,6 +4,11 @@ var d3 = require('d3');
 d3.tile = require('d3-tile').tile;
 var infovyz = require('../');
 
+test('version test', function(t) {
+  t.equal(infovyz.version, '1.0.0-beta.2', 'version is \'1.0.0-beta.2\'.');
+  t.end();
+});
+
 test('initialize map().', function(t) {
   var document = global.document = jsdom.jsdom();
   var map;
