@@ -18,8 +18,5 @@
     "bower_components",
     "test",
     "tests"
-  ],
-  "scripts": {
-    "postinstall": "npm run test && uglifyjs build/infovyz.js -c -m -o build/infovyz.min.js && npm run build-css"
-  }
+  ]
 }
