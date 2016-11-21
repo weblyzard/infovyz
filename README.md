@@ -20,7 +20,7 @@ Add the required files to your HTML file. Please note that Infovyz requires `d3.
 <link rel="stylesheet" type="text/css" href="node_modules/infovyz/build/infovyz.css">
 <script src="//d3js.org/d3.v4.min.js"></script>
 <script src="//d3js.org/d3-tile.v0.0.min.js"></script>
-<script src="node_modules/infovyz/build/build/infovyz.min.js"></script>
+<script src="node_modules/infovyz/build/infovyz.min.js"></script>
 ```
 
 To get started and initialize a geographic map attached to the `body` tag, use the following JavaScript code:
