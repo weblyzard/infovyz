@@ -8,11 +8,19 @@ _Infovyz_ is a JavaScript/d3 based visualization library.
 
 ## Installation and Usage
 
-We recommend installing the module using npm. (Look here for instructions on how to use infovyz with bower: https://github.com/weblyzard/infovyz/wiki/Bower-Usage)
+### npm
 
 ```bash
 npm install infovyz
 ```
+
+### bower_components
+
+```bash
+bower install infovyz
+```
+
+### Client Side Usage
 
 Add the required files to your HTML file. Please note that Infovyz requires `d3.js` V4 (https://www.npmjs.com/package/d3) and `d3-tile` (https://www.npmjs.com/package/d3-tile).
 
