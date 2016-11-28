@@ -125,17 +125,11 @@ export default function(d3) {
 
       // Compute the projected center.
       var bounds  = path.bounds(data);
-
-      var transl = [
-        (bounds[0][0] + bounds[1][0]) / 2,
-        (bounds[0][1] + bounds[1][1]) / 2
-      ];
-
-      var boundsWidth = bounds[1][0] - bounds[0][0];
-      var boundsHeight = bounds[1][1] - bounds[1][0];
-      var boundsScale = Math.max(boundsWidth, boundsHeight);
-
-      var scale = Math.min(width, height) / boundsScale;
+      var bx = bounds[1][0] - bounds[0][0];
+      var by = bounds[1][1] - bounds[0][1];
+      var tx = (bounds[0][0] + bounds[1][0]) / 2;
+      var ty = (bounds[0][1] + bounds[1][1]) / 2;
+      var scale = 0.8 * Math.min(width / bx, height / by);
 
       svg.call(zoom);
 
@@ -159,7 +153,7 @@ export default function(d3) {
             d3.zoomIdentity
               .translate(width / 2, height / 2)
               .scale(scale)
-              .translate(-transl[0], -transl[1])
+              .translate(-tx, -ty)
           );
       }
 
