@@ -1,4 +1,5 @@
 import eslint from 'rollup-plugin-eslint';
+import nodeResolve from 'rollup-plugin-node-resolve';
 
 export default {
   entry: 'index.js',
@@ -11,6 +12,10 @@ export default {
       exclude: [
         'src/styles/**',
       ]
+    }),
+    nodeResolve({
+      jsnext: true,
+      browser: true
     })
   ]
 };

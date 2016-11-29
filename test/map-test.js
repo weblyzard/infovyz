@@ -1,19 +1,19 @@
 var test = require('tape');
 var d3 = require('d3');
 d3.tile = require('d3-tile').tile;
-var infovyz = require('../');
+var infovyz = require('../build/infovyz');
 
 var map;
 
 var width = 960;
 var height = 500;
-var wrapper = d3.select('body')
+
+d3.select('body')
   .append('div')
   .attr('id', 'map')
   .style('width', width + 'px')
   .style('height', height + 'px');
 
-console.log('wrapper', wrapper.innerHTML);
 test('initialize map().', function(t) {
   t.doesNotThrow(function() {
     map = infovyz.map(d3)('#map');
@@ -38,6 +38,78 @@ test('initialize map().', function(t) {
 
   var overlay = svgSelection.select('g.overlay');
   t.notOk(overlay.empty(), 'DOM element g.overlay exists.');
+
+  t.end();
+});
+
+test('map(...)', function(t) {
+  map = infovyz.map(d3)('#map');
+
+  t.doesNotThrow(function() {
+    map();
+  }, 'Calling map() without arguments.');
+
+  t.doesNotThrow(function() {
+    map([{
+      id: 'Europe',
+      longitude: 15.2551,
+      latitude: 54.5260,
+      value: 1
+    }]);
+  }, 'Calling map() with a proper location.');
+
+  t.doesNotThrow(function() {
+    map([{
+      id: 'Europe',
+      longitude: 15.2551,
+      latitude: 54.5260
+    }]);
+  }, 'Calling map() without a value in the location.');
+
+  t.throws(function() {
+    map([{
+      id: 1,
+      longitude: 15.2551,
+      latitude: 54.5260
+    }]);
+  }, 'Calling map() without an id as string in the location.');
+
+  t.throws(function() {
+    map([{
+      id: 1,
+      longitude: 100,
+      latitude: 54.5260
+    }]);
+  }, 'Calling map() with invalid longitude.');
+
+  t.throws(function() {
+    map([{
+      id: 1,
+      longitude: 50,
+      latitude: 200
+    }]);
+  }, 'Calling map() with invalid latidude.');
+
+  t.throws(function() {
+    map([{
+      longitude: 15.2551,
+      latitude: 54.5260
+    }]);
+  }, 'Calling map() with missing id attribute in location.');
+
+  t.throws(function() {
+    map([{
+      id: 'Europe',
+      latitude: 54.5260
+    }]);
+  }, 'Calling map() with missing longitude attribute in location.');
+
+  t.throws(function() {
+    map([{
+      id: 'Europe',
+      longitude: 15.2551
+    }]);
+  }, 'Calling map() with missing latitude attribute in location.');
 
   t.end();
 });

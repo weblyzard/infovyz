@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "http-server",
-    "pretest": "rm -rf build && mkdir build && rollup -f umd -n infovyz -o build/infovyz.js -- index.js",
+    "pretest": "rm -rf build && mkdir build && rollup -c",
     "watch": "rm -rf build && mkdir build && rollup -c --watch | npm run watch-css | http-server",
     "test": "browserify test/*-test.js | ./node_modules/.bin/tape-run | ./node_modules/.bin/faucet",
     "build-css": "lessc src/styles/map.less > build/infovyz.css",
@@ -27,7 +27,9 @@
     "prepublish": "npm run test && uglifyjs build/infovyz.js -c -m -o build/infovyz.min.js && npm run build-css",
     "postpublish": "zip -j build/infovyz.zip -- LICENSE README.md build/infovyz.css build/infovyz.js build/infovyz.min.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "avocado-type-checker": "^1.0.0-alpha.4"
+  },
   "devDependencies": {
     "catw": "^1.0.1",
     "d3": "^4.3.0",
@@ -39,6 +41,7 @@
     "less": "^2.7.1",
     "rollup": "^0.36.3",
     "rollup-plugin-eslint": "^3.0.0",
+    "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-watch": "^2.5.0",
     "tape": "4",
     "tape-run": "^2.1.4",
