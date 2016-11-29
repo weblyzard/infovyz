@@ -7,14 +7,17 @@ var map;
 
 var width = 960;
 var height = 500;
-var body = d3.select('body')
-  .attr('width', width)
-  .attr('height', height);
+var wrapper = d3.select('body')
+  .append('div')
+  .attr('id', 'map')
+  .style('width', width + 'px')
+  .style('height', height + 'px');
 
+console.log('wrapper', wrapper.innerHTML);
 test('initialize map().', function(t) {
   t.doesNotThrow(function() {
-    map = infovyz.map(d3)('body');
-  }, 'Initialize map and add to body tag.');
+    map = infovyz.map(d3)('#map');
+  }, 'Initialize map and add to wrapper element.');
 
   t.equal(typeof map, 'function', 'map is of type function.');
   t.equal(typeof map.autozoom, 'function', 'map.autozoom is of type function.');
@@ -23,9 +26,12 @@ test('initialize map().', function(t) {
   t.ok(map.autozoom(), 'default map.autozoom() is true.');
   t.equal(map.transitionDuration(), 500, 'default transitionDuration is 500ms.');
 
-  var svgSelection = d3.select('body svg');
+  var svgSelection = d3.select('#map svg');
   t.notOk(svgSelection.empty(), 'svg DOM element exists.');
   t.ok(svgSelection.classed('infovyz-map'), 'svg DOM element has class `infovyz-map`.');
+
+  t.equal(svgSelection.attr('width'), width + '', 'svg DOM element width matches wrapper width.');
+  t.equal(svgSelection.attr('height'), height + '', 'svg DOM element width matches wrapper width.');
 
   var tiles = svgSelection.select('g.tiles');
   t.notOk(tiles.empty(), 'DOM element g.tiles exists.');
@@ -37,7 +43,7 @@ test('initialize map().', function(t) {
 });
 
 test('map.panTo()', function(t) {
-  map = infovyz.map(d3)('body');
+  map = infovyz.map(d3)('#map');
 
   t.throws(function() {
     map.panTo();
