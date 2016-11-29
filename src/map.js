@@ -159,13 +159,15 @@ export default function(d3) {
 
       vector.datum(data);
 
-      radius.domain(d3.extent(data.features.map(function(f) {
+      var features = (typeof data !== 'undefined') ? data.features : [];
+
+      radius.domain(d3.extent(features.map(function(f) {
         return f.properties.value || 1;
       })));
 
       var bubble = vector
         .selectAll('circle')
-        .data(data.features, function(d) { return d.id; });
+        .data(features, function(d) { return d.id; });
 
       bubble
         .exit()
