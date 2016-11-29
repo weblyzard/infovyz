@@ -11,8 +11,8 @@ export default function(d3) {
     var strokeWidth = 0.5;
 
     var wrapper = d3.select(id);
-    var width = parseInt(wrapper.style('width').replace('px', ''), 10);
-    var height = parseInt(wrapper.style('height').replace('px', ''), 10);
+    var width = wrapper.node().clientWidth;
+    var height = wrapper.node().clientHeight;
     var size = [width, height];
 
     var tilesConfig = {
@@ -105,8 +105,8 @@ export default function(d3) {
     };
 
     var map = function(d) {
-      var newWidth = parseInt(wrapper.style('width').replace('px', ''), 10);
-      var newHeight = parseInt(wrapper.style('height').replace('px', ''), 10);
+      var newWidth = wrapper.node().clientWidth;
+      var newHeight = wrapper.node().clientHeight;
       var _transitionDuration = transitionDuration;
 
       if (width !== newWidth || height !== newHeight) {
