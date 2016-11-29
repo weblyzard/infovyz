@@ -194,6 +194,29 @@ var map = function(d3) {
       return map;
     };
 
+    map.panTo = function(d) {
+      if (typeof d === 'undefined') {
+        throw new Error('map.panTo() called without location.');
+      }
+
+      if (typeof d.longitude === 'undefined' || typeof d.latitude === 'undefined') {
+        throw new Error('map.panTo() called without valid location.');
+      }
+
+      var t = projection([d.longitude, d.latitude]);
+      var z = d.zoom || 10;
+      svg
+        .transition()
+        .duration(transitionDuration)
+        .call(
+          zoom.transform,
+          d3.zoomIdentity
+            .translate(width / 2, height / 2)
+            .scale(1 << z)
+            .translate(-t[0], -t[1])
+        );
+    };
+
     map.autozoom = function(d) {
       if (arguments.length === 0) return autozoom;
       autozoom = d;
@@ -211,7 +234,7 @@ var map = function(d3) {
 };
 
 var index = {
-  version: '1.0.0-beta.4',
+  version: '1.0.0-beta.5',
   map: map
 };
 
