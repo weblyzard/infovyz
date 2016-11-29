@@ -75,6 +75,11 @@ The console output should tell you at which address you can reach the static web
 
 <img src="examples/earthquakes/earthquakes.jpg" alt="Earthquakes Example" width="500" />
 
+
+## API Documentation
+
+In addition to the examples, the library itself is documented in [API.md](API.md).
+
 ## Testing
 
 _Infovyz_ is using tape for testing its functionality:
