@@ -4,16 +4,16 @@ var d3 = require('d3');
 d3.tile = require('d3-tile').tile;
 var infovyz = require('../');
 
+var document = global.document = jsdom.jsdom();
+var map;
+
+var width = 960;
+var height = 500;
+var body = d3.select('body')
+  .attr('width', width)
+  .attr('height', height);
+
 test('initialize map().', function(t) {
-  var document = global.document = jsdom.jsdom();
-  var map;
-
-  var width = 960;
-  var height = 500;
-  var body = d3.select('body')
-    .attr('width', width)
-    .attr('height', height);
-
   t.doesNotThrow(function() {
     map = infovyz.map(d3)('body');
   }, 'Initialize map and add to body tag.');
@@ -34,6 +34,31 @@ test('initialize map().', function(t) {
 
   var overlay = svgSelection.select('g.overlay');
   t.notOk(overlay.empty(), 'DOM element g.overlay exists.');
+
+  t.end();
+});
+
+test('map.panTo()', function(t) {
+  map = infovyz.map(d3)('body');
+
+  t.throws(function() {
+    map.panTo();
+  }, 'Call map.panTo() without location throws error.');
+
+  t.throws(function() {
+    map.panTo({});
+  }, 'Call map.panTo() without valid location throws error.');
+
+  // the following should work but doesn't because jsdom
+  // doesn't support SVGElement.
+  /*
+  t.doesNotThrow(function() {
+    map.panTo({
+      longitude: 16.363449,
+      latitude: 48.210033
+    });
+  }, 'Calling map.panTo() with valid location works.');
+  */
 
   t.end();
 });
