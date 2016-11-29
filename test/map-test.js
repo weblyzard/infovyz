@@ -1,10 +1,8 @@
 var test = require('tape');
-var jsdom = require('jsdom');
 var d3 = require('d3');
 d3.tile = require('d3-tile').tile;
 var infovyz = require('../');
 
-var document = global.document = jsdom.jsdom();
 var map;
 
 var width = 960;
@@ -51,14 +49,12 @@ test('map.panTo()', function(t) {
 
   // the following should work but doesn't because jsdom
   // doesn't support SVGElement.
-  /*
   t.doesNotThrow(function() {
     map.panTo({
       longitude: 16.363449,
       latitude: 48.210033
     });
   }, 'Calling map.panTo() with valid location works.');
-  */
 
   t.end();
 });
