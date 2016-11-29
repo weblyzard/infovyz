@@ -67,10 +67,11 @@ npm install
 npm start
 ```
 
-The console output should tell you at which address you can reach the static webserver, for example:
+The console output should tell you at which address you can reach the static webserver, for example `http://localhost:8080/examples`.
 
-- http://localhost:8080/examples/earthquakes/
-- http://localhost:8080/examples/state-capitals/
+- **State Capitals:** Basic usage, shows initialization and data updates. http://localhost:8080/examples/state-capitals/
+- **Earthquakes:** Demonstrates automatic periodic data updates. http://localhost:8080/examples/earthquakes/
+- **Travel:** Uses `map.panTo()` to transition to certain locations. http://localhost:8080/examples/travel/
 
 <img src="examples/earthquakes/earthquakes.jpg" alt="Earthquakes Example" width="500" />
 
