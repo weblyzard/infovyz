@@ -228,6 +228,34 @@ export default function(d3) {
         })
         .attr('stroke-width', strokeWidth / scale);
 
+      var legend = svg.select('g.legend');
+
+      if (legend.empty()) {
+        legend = svg.append('g').attr('class', 'legend');
+      }
+
+      legend
+        .attr('transform', 'translate(' + (width - radius(valueExtent[1]) - 10) + ',' + (height - 10) + ')');
+
+      var legendElement = legend.selectAll('g')
+        .data(valueExtent)
+        .enter().append('g');
+
+      legendElement.append('circle');
+
+      legend.selectAll('circle')
+        .data(valueExtent)
+        .attr('cy', function(d) { return -(radius(d)); })
+        .attr('r', function(d) { return radius(d); });
+
+      legendElement.append('text');
+
+      legend.selectAll('text')
+        .data(valueExtent)
+        .attr('y', function(d) { return -2 * (radius(d)); })
+        .attr('dy', function() { return '-.2em'; })
+        .text(function(d){ return d; });
+
       return map;
     };
 
