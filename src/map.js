@@ -64,7 +64,7 @@ export default function(d3) {
       vector
         .attr('transform', transform);
       
-      vector.selectAll('circle')
+      vector.selectAll('circle.active')
         .attr('transform', function(d) { return 'translate(' + projection(d.geometry.coordinates) + ')'; })
         .attr('r', function(d) {
           return radius(d.properties.value || 1) / transform.k;
@@ -196,9 +196,13 @@ export default function(d3) {
 
       var features = (typeof data !== 'undefined') ? data.features : [];
 
-      radius.domain(d3.extent(features.map(function(f) {
+      var valueExtent = d3.extent(features.map(function(f) {
         return f.properties.value || 1;
-      })));
+      }));
+
+      radius = d3.scalePow()
+        .domain(valueExtent)
+        .range([3, 15]);
 
       var bubble = vector
         .selectAll('circle')
@@ -206,6 +210,7 @@ export default function(d3) {
 
       bubble
         .exit()
+        .classed('active', false)
         .transition()
         .attr('r', 0)
         .attr('stroke-width', 0)
@@ -213,6 +218,7 @@ export default function(d3) {
 
       scale = (previousTransform) ? previousTransform.k : scale;
       bubble.enter().append('circle')
+        .classed('active', true)
         .attr('transform', function(d) { return 'translate(' + projection(d.geometry.coordinates) + ')'; })
         .attr('r', 0)
         .attr('stroke-width', 0)
@@ -221,6 +227,34 @@ export default function(d3) {
           return radius(d.properties.value || 1) / scale;
         })
         .attr('stroke-width', strokeWidth / scale);
+
+      var legend = svg.select('g.legend');
+
+      if (legend.empty()) {
+        legend = svg.append('g').attr('class', 'legend');
+      }
+
+      legend
+        .attr('transform', 'translate(' + (width - radius(valueExtent[1]) - 10) + ',' + (height - 10) + ')');
+
+      var legendElement = legend.selectAll('g')
+        .data(valueExtent)
+        .enter().append('g');
+
+      legendElement.append('circle');
+
+      legend.selectAll('circle')
+        .data(valueExtent)
+        .attr('cy', function(d) { return -(radius(d)); })
+        .attr('r', function(d) { return radius(d); });
+
+      legendElement.append('text');
+
+      legend.selectAll('text')
+        .data(valueExtent)
+        .attr('y', function(d) { return -2 * (radius(d)); })
+        .attr('dy', function() { return '-.2em'; })
+        .text(function(d){ return d; });
 
       return map;
     };
