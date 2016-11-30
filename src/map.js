@@ -49,8 +49,8 @@ export default function(d3) {
     }
 
     var raster = svg.append('g').classed('tiles', true);
-
     var vector = svg.append('g').classed('overlay', true);
+    var legend = svg.append('g').classed('legend', true);
 
     var previousTransform;
     function zoomed() {
@@ -227,12 +227,6 @@ export default function(d3) {
           return radius(d.properties.value || 1) / scale;
         })
         .attr('stroke-width', strokeWidth / scale);
-
-      var legend = svg.select('g.legend');
-
-      if (legend.empty()) {
-        legend = svg.append('g').attr('class', 'legend');
-      }
 
       legend
         .attr('transform', 'translate(' + (width - radius(valueExtent[1]) - 10) + ',' + (height - 10) + ')');

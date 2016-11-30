@@ -39,6 +39,9 @@ test('initialize map().', function(t) {
   var overlay = svgSelection.select('g.overlay');
   t.notOk(overlay.empty(), 'DOM element g.overlay exists.');
 
+  var legend = svgSelection.select('g.legend');
+  t.notOk(legend.empty(), 'DOM element g.legend exists.');
+
   t.end();
 });
 
