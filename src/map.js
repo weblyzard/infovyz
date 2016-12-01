@@ -4,6 +4,7 @@ export default function(d3) {
   return function(id) {
     var av = avocado;
     var autozoom = true;
+    var interactive = true;
     var transitionDuration = 500; // ms
     var pi = Math.PI;
     var tau = 2 * pi;
@@ -46,6 +47,10 @@ export default function(d3) {
           .classed('infovyz-map', true)
           .attr('width', width)
           .attr('height', height);
+
+      if (!interactive) {
+        svg.style('pointer-events', 'none');
+      }
     }
 
     var raster = svg.append('g').classed('tiles', true);
@@ -279,6 +284,19 @@ export default function(d3) {
     map.autozoom = function(d) {
       if (arguments.length === 0) return autozoom;
       autozoom = d;
+      return map;
+    };
+
+    map.interactive = function(d) {
+      if (arguments.length === 0) return interactive;
+      interactive = d;
+
+      if (!interactive) {
+        svg.style('pointer-events', 'none');
+      } else {
+        svg.style('pointer-events', null);
+      }
+
       return map;
     };
 

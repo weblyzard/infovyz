@@ -48,7 +48,9 @@
 <script src="/build/infovyz.js"></script>
 
 <script id="example-script">
-  var map = infovyz.map(d3)('#map').transitionDuration(2000);
+  var map = infovyz.map(d3)('#map')
+    .interactive(false)
+    .transitionDuration(2000);
 
   var locations = [
     { // Ecuador
