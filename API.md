@@ -33,7 +33,7 @@ Updates the bubble map with new locations. This replaces a possibly existing pre
 
 The library [Avocado](https://github.com/walterra/avocado) is used to verify the input, e.g. if longitude and latitude are values in the proper range. The value attribute is optional.
 
-<a name="map-autozoom" href="#map-autozoom">#</a> <b>`<map>`</b>.autozoom(<i>[boolean]</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L251 "Source")
+<a name="map-autozoom" href="#map-autozoom">#</a> <b>`<map>`</b>.autozoom(<i>[boolean]</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L284 "Source")
 
 Gets or sets the <i>autozoom</i> status.
 
@@ -43,7 +43,17 @@ If <i>boolean</i> is not specified, returns he current <i>autzoom</i> status.
 
 Defaults to `true`.
 
-<a name="map-transitionduration" href="#map-transitionduration">#</a> <b>`<map>`</b>.transitionDuration(<i>[duration]</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L257 "Source")
+<a name="map-interactive" href="#map-interactive">#</a> <b>`<map>`</b>.interactive(<i>[boolean]</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L290 "Source")
+
+Gets or sets the <i>interactive</i> status.
+
+If <i>boolean</i> is specified, enables or disables the <i>interactive</i> feature. If enabled, mouse events are enabled to be able to navigate the map with zoom and pan. When disabled, these events will not be considered by settings the SVG elements style `pointer-events` to `none`. The bubbles themselves can still listen to mouse events.
+
+If <i>boolean</i> is not specified, returns he current <i>interactive</i> status.
+
+Defaults to `true`.
+
+<a name="map-transitionduration" href="#map-transitionduration">#</a> <b>`<map>`</b>.transitionDuration(<i>[duration]</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L303 "Source")
 
 Gets or sets the <i>transitionDuration</i>.
 
@@ -52,7 +62,7 @@ If <i>duration</i> is not specified, returns he current <i>transitionDuration</i
 
 Defaults to `500`.
 
-<a name="map-panto" href="#map-panto">#</a> <b>`<map>`</b>.panTo(<i>location</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L228 "Source")
+<a name="map-panto" href="#map-panto">#</a> <b>`<map>`</b>.panTo(<i>location</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L261 "Source")
 
 Moves the visible viewport to the bounds of <i>location</i>, expected in this format:
 

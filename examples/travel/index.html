@@ -57,7 +57,9 @@
     }
   ];
 
-  var map = infovyz.map(d3)('#map').transitionDuration(3000);
+  var map = infovyz.map(d3)('#map')
+    .interactive(false)
+    .transitionDuration(3000);
 
   map(locations);
 

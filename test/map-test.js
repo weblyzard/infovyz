@@ -21,9 +21,11 @@ test('initialize map().', function(t) {
 
   t.equal(typeof map, 'function', 'map is of type function.');
   t.equal(typeof map.autozoom, 'function', 'map.autozoom is of type function.');
+  t.equal(typeof map.interactive, 'function', 'map.autozoom is of type function.');
   t.equal(typeof map.transitionDuration, 'function', 'map.transitionDuration is of type function');
 
   t.ok(map.autozoom(), 'default map.autozoom() is true.');
+  t.ok(map.interactive(), 'default map.interactive() is true.');
   t.equal(map.transitionDuration(), 500, 'default transitionDuration is 500ms.');
 
   var svgSelection = d3.select('#map svg');
