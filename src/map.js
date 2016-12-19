@@ -85,7 +85,9 @@ export default function(d3) {
         .exit().remove();
 
       image.enter().append('image')
-          .attr('xlink:href', function(d) { return tilesConfig.url + d[2] + '/' + d[0] + '/' + d[1] + tilesConfig.extension; })
+          .attr('xlink:href', function(d) {
+            return tilesConfig.url + d[2] + '/' + d[0] + '/' + d[1] + tilesConfig.extension;
+          })
           .attr('x', function(d) { return d[0] * tilesConfig.factor; })
           .attr('y', function(d) { return d[1] * tilesConfig.factor; })
           .attr('width', tilesConfig.factor)
