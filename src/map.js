@@ -1,8 +1,33 @@
-import avocado from 'avocado-type-checker/index';
+import { default as av } from 'avocado-type-checker/build/avocado_es';
+
+av.type('latitude', function(d) {
+  var l = av('float')(d)();
+  if (l < -90 || l > 90) {
+    throw new Error('latitude must be a number between -90 and 90.');
+  }
+  return d;
+});
+
+av.type('longitude', function (d){
+  var l = av('float')(d)();
+  if (l < -180 || l > 180) {
+    throw new Error('longitude must be a number between -180 and 180.');
+  }
+  return d;
+});
+
+av.type('location', {
+  id: 'string',
+  // commented for now because examples use data without values
+  // and avocado doesn't support optional attributes yet.
+  // value: 'int',
+  longitude: 'longitude',
+  latitude: 'latitude'
+});
+
 
 export default function(d3) {
   return function(id) {
-    var av = avocado;
     var autozoom = true;
     var interactive = true;
     var transitionDuration = 500; // ms
@@ -100,42 +125,11 @@ export default function(d3) {
       return 'translate(' + r(translate[0] * scale) + ',' + r(translate[1] * scale) + ') scale(' + k + ')';
     }
 
-    var latitude = function(i) {
-      return av(i, function (d){
-        var l = av.float(d)();
-        if (l < -90 || l > 90) {
-          throw new Error('latitude must be a number between -90 and 90.');
-        }
-        return d;
-      });
-    };
-
-    var longitude = function(i) {
-      return av(i, function (d){
-        var l = av.float(d)();
-        if (l < -180 || l > 180) {
-          throw new Error('longitude must be a number between -180 and 180.');
-        }
-        return d;
-      });
-    };
-
-    var Location = function(i) {
-      return av.map(i, {
-        id: av.string,
-        // commented for now because examples use data without values
-        // and avocado doesn't support optional attributes yet.
-        // value: av.int,
-        longitude: longitude,
-        latitude: latitude
-      });
-    };
-
     var transformData = function(d) {
       return {
         type: 'FeatureCollection',
         features: d.map(function(el) {
-          Location(el);
+          av('location')(el);
           return {
             type: 'Feature',
             id: el.id,

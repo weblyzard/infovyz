@@ -28,7 +28,7 @@
     "postpublish": "zip -j build/infovyz.zip -- LICENSE README.md build/infovyz.css build/infovyz.js build/infovyz.min.js"
   },
   "dependencies": {
-    "avocado-type-checker": "^1.0.0-alpha.4"
+    "avocado-type-checker": "^1.0.0-alpha.6"
   },
   "devDependencies": {
     "catw": "^1.0.1",
