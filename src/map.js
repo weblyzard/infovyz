@@ -1,4 +1,4 @@
-import { default as av } from './validateLocation';
+import { default as av } from './_validateLocation';
 
 export default function(d3) {
   return function(id) {
