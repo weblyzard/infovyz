@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/examples/css/styles.css">
+<link rel="stylesheet" type="text/css" href="/build/infovyz.css">
+
+<div id="example">
+  <header>
+    <a href="https://github.com/weblyzard/infovyz">infovyz</a>/examples/linechart<br />
+    <span class="light smaller">Updated December 20, 2016</span>
+    <h1>Line Chart</h1>
+  </header>
+  <div id="linechart"></div>
+  <section id="controls">
+    <button id="toggle-size">Toggle Size</button>
+    <button id="toggle-data">Toggle Data</button>
+  </section>
+  <section id="readme">
+    <p>This example demonstrates the basic usage of Infovyz's line chart. The following line initializes the line chart and attaches it to DOM element #linechart.</p>
+    <pre><code class="javascript">var linechart = infovyz.linechart(d3)('#linechart');</code></pre>
+
+    <p>To display some data, just call linechart() with the data as an argument:</p>
+    <pre><code class="javascript">linechart(data);</code></pre>
+
+    <p>Calling linechart() without arguments will re-render the existing linechart and will for example take into account an updated size of the wrapper DOM element.</p>
+    <p>Here's the full example:</p>
+  </section>
+  <div id="code-wrapper"><pre><code id="code" class="javascript"></code></pre></div>
+</div>
+
+<script src="/node_modules/d3/build/d3.min.js"></script>
+<script src="/node_modules/d3-tile/build/d3-tile.min.js"></script>
+<script src="/build/infovyz.js"></script>
+
+<script id="example-script">
+  var linechart;
+
+  var sizes = [
+    [ 960, 500 ],
+    [ 480, 250 ]
+  ];
+
+  var parseTime = d3.timeParse("%Y%m%d");
+
+  var resizeWrapper = function(size) {
+    d3.select('#linechart')
+      .style('width', size[0] + 'px')
+      .style('height', size[1] + 'px');
+  };
+
+  resizeWrapper(sizes[0]);
+
+  linechart = infovyz.linechart(d3)('#linechart');
+
+  var update = function() {
+    // create some dummy data
+    var lineCount = 1 + Math.floor(Math.random() * 4);
+    var startDate = parseTime('20160101');
+    var dayCount = 5 + Math.floor(Math.random() * 25);
+
+    var addDays = function(date, days) {
+      var result = new Date(date);
+      result.setDate(result.getDate() + days);
+      return result;
+    };
+
+    var data = [];
+    for (var i = 0; i < lineCount; i++) {
+      var line = {
+        id: 'l' + i,
+        values: []
+      };
+      for (var j = 0; j < dayCount; j++) {
+        line.values.push({
+          date: addDays(startDate, j),
+          value: Math.random() * 100
+        });
+      }
+      data.push(line);
+    }
+
+    linechart(data);
+  };
+
+  update();
+
+  function type(d, _, columns) {
+    d.date = parseTime(d.date);
+    for (var i = 1, n = columns.length, c; i < n; ++i) d[c = columns[i]] = +d[c];
+    return d;
+  }
+
+  d3.select('#toggle-size').on('click', function(e) {
+    sizes = sizes.reverse();
+    resizeWrapper(sizes[0]);
+    linechart();
+  });
+
+  d3.select('#toggle-data').on('click', function(e) {
+    update();
+  })
+</script>
+
+<script src="/examples/js/highlight.js"></script>
