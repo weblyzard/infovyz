@@ -24,7 +24,7 @@
 
     <pre><code class="javascript">
   // This initializes the map and attaches it to the wrapper DOM element.
-  var map = infovyz.map(d3)('#map');
+  var map = infovyz(d3).map('#map');
 
   // To add some bubbles to the map, simply call map() with some data.
   map([
@@ -48,7 +48,7 @@
 <script src="/build/infovyz.js"></script>
 
 <script id="example-script">
-  var map = infovyz.map(d3)('#map')
+  var map = infovyz(d3).map('#map')
     .interactive(false)
     .transitionDuration(2000);
 

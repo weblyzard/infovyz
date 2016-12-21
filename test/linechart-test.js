@@ -1,6 +1,6 @@
 var test = require('tape');
 var d3 = require('d3');
-var infovyz = require('../build/infovyz');
+var infovyz = require('../build/infovyz')(d3);
 
 var linechart;
 
@@ -16,7 +16,7 @@ d3.select('body')
 
 test('initialize linechart().', function(t) {
   t.doesNotThrow(function() {
-    linechart = infovyz.linechart(d3)('#linechart');
+    linechart = infovyz.linechart('#linechart');
   }, 'Initialize linechart and add to wrapper element.');
 
   t.equal(typeof linechart, 'function', 'linechart is of type function.');
@@ -44,7 +44,7 @@ test('initialize linechart().', function(t) {
 });
 
 test('linechart(...)', function(t) {
-  linechart = infovyz.linechart(d3)('#linechart');
+  linechart = infovyz.linechart('#linechart');
 
   t.doesNotThrow(function() {
     linechart();

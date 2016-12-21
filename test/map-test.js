@@ -1,7 +1,7 @@
 var test = require('tape');
 var d3 = require('d3');
 d3.tile = require('d3-tile').tile;
-var infovyz = require('../build/infovyz');
+var infovyz = require('../build/infovyz')(d3);
 
 var map;
 
@@ -16,7 +16,7 @@ d3.select('body')
 
 test('initialize map().', function(t) {
   t.doesNotThrow(function() {
-    map = infovyz.map(d3)('#map');
+    map = infovyz.map('#map');
   }, 'Initialize map and add to wrapper element.');
 
   t.equal(typeof map, 'function', 'map is of type function.');
@@ -48,7 +48,7 @@ test('initialize map().', function(t) {
 });
 
 test('map(...)', function(t) {
-  map = infovyz.map(d3)('#map');
+  map = infovyz.map('#map');
 
   t.doesNotThrow(function() {
     map();
@@ -120,7 +120,7 @@ test('map(...)', function(t) {
 });
 
 test('map.panTo()', function(t) {
-  map = infovyz.map(d3)('#map');
+  map = infovyz.map('#map');
 
   t.throws(function() {
     map.panTo();

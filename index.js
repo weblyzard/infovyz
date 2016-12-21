@@ -1,8 +1,12 @@
 import map from './src/map';
 import linechart from './src/linechart';
 
-export default {
-  version: '1.0.0-beta.7',
-  linechart: linechart,
-  map: map
+var infovyz = function(d3) {
+  return {
+    version: '1.0.0-beta.7',
+    linechart: linechart(d3),
+    map: map(d3)
+  };
 };
+
+export default infovyz;
