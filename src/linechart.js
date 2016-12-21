@@ -72,6 +72,7 @@ export default function(d3) {
       
       var t = d3.transition()
         .duration(_transitionDuration);
+
       var fadeTransition = d3.transition()
         .duration(0)
         .delay(500);
