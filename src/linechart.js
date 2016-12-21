@@ -38,10 +38,6 @@ export default function(d3) {
       var width = wrapperWidth - margin.left - margin.right;
       var height = wrapperHeight - margin.top - margin.bottom;
       
-      // '2015-06-01T02:00:00+00:00'
-      //var formatDate = d3.time.format('%c');
-      //var formatDate = d3.timeParse('%Y-%m-%d');
-      
       var x = d3.scaleTime().rangeRound([0, width]);
       var y = d3.scaleLinear().rangeRound([height, 0]);
       var z = d3.scaleOrdinal(d3.schemeCategory10);
@@ -52,7 +48,7 @@ export default function(d3) {
       .y(function(d) { return y(d.value); });
       
       if (arguments.length === 0) {
-        data = wrapper.selectAll('svg g.viewport .city').data();
+        data = wrapper.selectAll('svg g.viewport path.line').data();
         _transitionDuration = 0;
       }
 
@@ -74,38 +70,46 @@ export default function(d3) {
         .attr('width', wrapperWidth)
         .attr('height', wrapperHeight);
       
+      var t = d3.transition()
+        .duration(_transitionDuration);
+      var fadeTransition = d3.transition()
+        .duration(0)
+        .delay(500);
+
       gXAxis
         .attr('transform', 'translate(0,' + height + ')')
-        .transition().duration(_transitionDuration)
+        .transition(t)
         .call(d3.axisBottom(x).ticks(width / 75));
 
       gYAxis
-        .transition().duration(_transitionDuration)
+        .transition(t)
         .call(d3.axisLeft(y).ticks(height / 50));
 
-      var lines = svg.selectAll('.city')
-      .data(data, function(d) { return d.id; });
+      var lines = svg.selectAll('path.line')
+        .data(data, function(d) { return d.id; });
       
       lines
-      .enter()
-      .append('g')
-      .attr('class', 'city')
-      .append('path')
-      .attr('class', 'line')
-      .style('stroke', function(d) {
-        return z(d.id);
-      });
-      
-      svg.selectAll('.city path.line')
-      .transition()
-      .duration(_transitionDuration)
-      .attr('d', function(d) {
-        return line(d.values);
-      });
-      
+        .exit()
+        .classed('exit', true)
+        .transition(fadeTransition)
+        .remove();
+
       lines
-      .exit()
-      .remove();
+        .transition(t)
+        .attr('d', function(d) {
+          return line(d.values);
+        });
+        
+      lines
+        .enter()
+        .append('path')
+        .attr('class', 'line')
+        .style('stroke', function(d) {
+          return z(d.id);
+        })
+        .attr('d', function(d) {
+          return line(d.values);
+        });
     };
 
     linechart.transitionDuration = function(d) {
