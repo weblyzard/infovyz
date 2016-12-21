@@ -12,10 +12,10 @@ A factory function taking <i>d3</i> as an argument to initialize a bubble map. R
 
 <a name="map-factory" href="#map-factory">#</a> <b>`<map_factory>`</b>(<i>selector</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L4 "Source")
 
-This is the factory returned by `infovyz.map(d3)` and itself returns the actual bubble map. The selector must be an existing DOM selection like `#wrapper`. Here's how you'd typically invoke a new bubble map:
+This is the factory returned by `infovyz(d3).map` and itself returns the actual bubble map. The selector must be an existing DOM selection like `#wrapper`. Here's how you'd typically invoke a new bubble map:
 
 ```js
-  var map = infovyz.map(d3)('#wrapper');
+  var map = infovyz(d3).map('#wrapper');
 ```
 
 <a name="map" href="#map">#</a> <b>`<map>`</b>(<i>locations</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L142 "Source")

@@ -34,7 +34,7 @@ Add the required files to your HTML file. Please note that Infovyz requires `d3.
 To get started and initialize a geographic map attached to the `body` tag, use the following JavaScript code:
 
 ```javascript
-var map = infovyz.map(d3)('body');
+var map = infovyz(d3).map('body');
 ```
 
 Just call `map()` again with an array of location objects to add some bubbles to the map:
