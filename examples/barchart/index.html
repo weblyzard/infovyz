@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/examples/css/styles.css">
+<link rel="stylesheet" type="text/css" href="/build/infovyz.css">
+
+<div id="example">
+  <header>
+    <a href="https://github.com/weblyzard/infovyz">infovyz</a>/examples/barchart<br />
+    <span class="light smaller">Updated December 21, 2016</span>
+    <h1>Bar Chart</h1>
+  </header>
+  <div id="barchart"></div>
+  <section id="controls">
+    <button id="toggle-size">Toggle Size</button>
+    <button id="toggle-data">Toggle Data</button>
+  </section>
+  <section id="readme">
+    <p>This example demonstrates the basic usage of Infovyz's bar chart. The following line initializes the bar chart and attaches it to DOM element #barchart.</p>
+    <pre><code class="javascript">var barchart = infovyz.barchart(d3)('#barchart');</code></pre>
+
+    <p>To display some data, just call barchart() with the data as an argument:</p>
+    <pre><code class="javascript">barchart(data);</code></pre>
+
+    <p>Calling barchart() without arguments will re-render the existing barchart and will for example take into account an updated size of the wrapper DOM element.</p>
+    <p>Here's the full example:</p>
+  </section>
+  <div id="code-wrapper"><pre><code id="code" class="javascript"></code></pre></div>
+</div>
+
+<script src="/node_modules/d3/build/d3.min.js"></script>
+<script src="/node_modules/d3-tile/build/d3-tile.min.js"></script>
+<script src="/build/infovyz.js"></script>
+
+<script id="example-script">
+  var barchart;
+
+  var sizes = [
+    [ 960, 500 ],
+    [ 480, 250 ]
+  ];
+
+  var resizeWrapper = function(size) {
+    d3.select('#barchart')
+      .style('width', size[0] + 'px')
+      .style('height', size[1] + 'px');
+  };
+
+  resizeWrapper(sizes[0]);
+
+  barchart = infovyz(d3).barchart('#barchart');
+
+  var update = function() {
+    // create some dummy data
+    var barCount = 2 + Math.floor(Math.random() * 18);
+
+    var data = [];
+    for (var i = 0; i < barCount; i++) {
+      var bar = {
+        id: 'l' + i,
+        value: Math.random() * 100
+      };
+      data.push(bar);
+    }
+
+    barchart(data);
+  };
+
+  update();
+
+  d3.select('#toggle-size').on('click', function(e) {
+    sizes = sizes.reverse();
+    resizeWrapper(sizes[0]);
+    barchart();
+  });
+
+  d3.select('#toggle-data').on('click', function(e) {
+    update();
+  })
+</script>
+
+<script src="/examples/js/highlight.js"></script>
