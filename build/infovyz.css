@@ -1,7 +1,83 @@
+.bar {
+  font-size: 9px;
+  margin-top: 1px;
+  margin-right: 1px;
+  display: inline-block;
+  height: 10px;
+  overflow: hidden;
+}
+.vertical {
+  width: 3px;
+  float: left;
+}
+.bar-label {
+  width: 67px;
+  overflow: hidden;
+  text-align: right;
+  margin-right: 3px;
+}
+.bar-value {
+  /* width: 20px; */
+  overflow: hidden;
+  text-align: right;
+  float: right;
+}
+.bar-bar {
+  background-color: #ff7f0e;
+}
+.axis--x path {
+  display: none;
+}
+path.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+  -webkit-animation: fadein 0.5s linear 1 forwards;
+  animation: fadein 0.5s linear 1 forwards;
+}
+path.line.exit {
+  -webkit-animation: fadeout 0.5s linear 1 forwards;
+  animation: fadeout 0.5s linear 1 forwards;
+}
+@-webkit-keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .infovyz-map circle {
   fill: brown;
   fill-opacity: 0.5;
   stroke: white;
+}
+.infovyz-map circle.active {
+  pointer-events: all;
 }
 .infovyz-map .legend circle {
   fill: none;

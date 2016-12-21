@@ -4,7 +4,7 @@ import linechart from './src/linechart';
 
 var infovyz = function(d3) {
   return {
-    version: '1.0.0-beta.7',
+    version: '1.0.0',
     barchart: barchart(d3),
     linechart: linechart(d3),
     map: map(d3)
