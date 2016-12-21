@@ -1,6 +1,6 @@
 # Infovyz
 
-_Infovyz_ is a JavaScript/d3 based visualization library.
+_Infovyz_ is a visualization component library based on d3.js. It's aim is to provide charts with a simple API optimized for usage in self-updating real-time dashboards. Currently it offers bar charts, line charts and a geographic map.
 
 [![npm](https://img.shields.io/npm/v/infovyz.svg?maxAge=2592000)](https://www.npmjs.com/package/infovyz)
 [![npm](https://img.shields.io/npm/l/infovyz.svg?maxAge=2592000)](https://www.npmjs.com/package/infovyz)

@@ -2,27 +2,49 @@
 
 ## API Reference
 
-### Map
+### General Usage
 
-Creates a geographic bubble map with a tile base layer.
+To initialize *infovyz*, pass its dependency `d3` to its factory:
 
-<a name="infovyz-map" href="#infovyz-map">#</a> infovyz.<b>map</b>(<i>d3</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L3 "Source")
-
-A factory function taking <i>d3</i> as an argument to initialize a bubble map. Returns another factory to create the actual map.
-
-<a name="map-factory" href="#map-factory">#</a> <b>`<map_factory>`</b>(<i>selector</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L4 "Source")
-
-This is the factory returned by `infovyz(d3).map` and itself returns the actual bubble map. The selector must be an existing DOM selection like `#wrapper`. Here's how you'd typically invoke a new bubble map:
-
-```js
-  var map = infovyz(d3).map('#wrapper');
+```javascript
+  var v = infovyz(d3);
 ```
 
-<a name="map" href="#map">#</a> <b>`<map>`</b>(<i>locations</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L142 "Source")
+<a name="map-factory" href="#chart-factory">#</a> <b>`infovyz(d3).<chart>`</b>(<i>selector</i>) 
 
-Updates the bubble map with new locations. This replaces a possibly existing previous data set. <i>locations</i> is expected to be an <i>Array</i> of plain <i>Objects</i> in the following format:
+Once the library itself is initialized, individual visualizations can be created by passing an existing wrapper DOM element to their factory. Here's how you'd typically invoke the different charts:
 
 ```js
+  var barchart = v.barchart('#barchart');
+  var linechart = v.linechart('#linechart');
+  var map = v.map('#map');
+```
+
+<a name="map" href="#map">#</a> <b>`<chartInstance>`</b>(<i>data</i>)
+
+You update a chart by calling it with new data as its argument. This replaces a possibly existing previous data set. <i>data</i> is expected to be an <i>Array</i> of plain JavaScript <i>Objects</i>. The object's required attributes differ for each component though:
+
+```js
+
+// Bar Chart
+{
+  id: 'bar-1',
+  value: 10
+}
+
+// Line Chart
+{
+  id: 'line-1',
+  // values is expected to be an Array of Object in the following format
+  values: [
+    {
+      date: new Date(),
+      value: 12
+    }
+  ]
+}
+
+// Geographic Bubble Map
 {
   id: 'Vienna, Austria',
   longitude: 16.363449,
@@ -31,9 +53,22 @@ Updates the bubble map with new locations. This replaces a possibly existing pre
 }
 ```
 
-The library [Avocado](https://github.com/walterra/avocado) is used to verify the input, e.g. if longitude and latitude are values in the proper range. The value attribute is optional.
+The library [Avocado](https://github.com/walterra/avocado) is used to verify the input, e.g. if longitude and latitude for the map are values in the proper range.
 
-<a name="map-autozoom" href="#map-autozoom">#</a> <b>`<map>`</b>.autozoom(<i>[boolean]</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L284 "Source")
+<a name="chart-transitionduration" href="#chart-transitionduration">#</a> <b>`<chart>`</b>.transitionDuration(<i>[duration]</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js "Source")
+
+This method is supported by all of the charts and gets or sets the <i>transitionDuration</i>.
+
+If <i>duration</i> is specified, sets <i>transitionDuration</i> to the specified time in milliseconds. This is the duration used by the <i>autozoom</i> transitions.
+If <i>duration</i> is not specified, returns he current <i>transitionDuration</i>.
+
+Defaults to `500`.
+
+### Geographic Bubble Map
+
+The map component exposes some additional methods:
+
+<a name="map-autozoom" href="#map-autozoom">#</a> <b>`<map>`</b>.autozoom(<i>[boolean]</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js "Source")
 
 Gets or sets the <i>autozoom</i> status.
 
@@ -43,7 +78,7 @@ If <i>boolean</i> is not specified, returns he current <i>autzoom</i> status.
 
 Defaults to `true`.
 
-<a name="map-interactive" href="#map-interactive">#</a> <b>`<map>`</b>.interactive(<i>[boolean]</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L290 "Source")
+<a name="map-interactive" href="#map-interactive">#</a> <b>`<map>`</b>.interactive(<i>[boolean]</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js "Source")
 
 Gets or sets the <i>interactive</i> status.
 
@@ -53,16 +88,7 @@ If <i>boolean</i> is not specified, returns he current <i>interactive</i> status
 
 Defaults to `true`.
 
-<a name="map-transitionduration" href="#map-transitionduration">#</a> <b>`<map>`</b>.transitionDuration(<i>[duration]</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L303 "Source")
-
-Gets or sets the <i>transitionDuration</i>.
-
-If <i>duration</i> is specified, sets <i>transitionDuration</i> to the specified time in milliseconds. This is the duration used by the <i>autozoom</i> transitions.
-If <i>duration</i> is not specified, returns he current <i>transitionDuration</i>.
-
-Defaults to `500`.
-
-<a name="map-panto" href="#map-panto">#</a> <b>`<map>`</b>.panTo(<i>location</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js#L261 "Source")
+<a name="map-panto" href="#map-panto">#</a> <b>`<map>`</b>.panTo(<i>location</i>) [<>](https://github.com/weblyzard/infovyz/blob/master/src/map.js "Source")
 
 Moves the visible viewport to the bounds of <i>location</i>, expected in this format:
 
