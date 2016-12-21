@@ -21,8 +21,10 @@
     "start": "http-server",
     "pretest": "rm -rf build && mkdir build && rollup -c",
     "watch": "rm -rf build && mkdir build && rollup -c --watch | npm run watch-css | http-server",
-    "test": "browserify test/*-test.js | ./node_modules/.bin/tape-run | ./node_modules/.bin/faucet",
-    "build-css": "lessc src/styles/map.less > build/infovyz.css",
+    "test": "npm run test-faucet",
+    "test-faucet": "browserify test/*-test.js | ./node_modules/.bin/tape-run | ./node_modules/.bin/faucet",
+    "test-raw": "browserify test/*-test.js | ./node_modules/.bin/tape-run",
+    "build-css": "lessc src/styles/styles.less > build/infovyz.css",
     "watch-css": "catw -w 'src/styles/**/*.less' -c 'npm run build-css'",
     "prepublish": "npm run test && uglifyjs build/infovyz.js -c -m -o build/infovyz.min.js && npm run build-css",
     "postpublish": "zip -j build/infovyz.zip -- LICENSE README.md build/infovyz.css build/infovyz.js build/infovyz.min.js"
